@@ -1,130 +1,88 @@
-# A* Algorithm for 8 Puzzle
+# A* for 8 Puzzle (Simple Version)
 
-# Global goal state
-goal = [[0]*3 for _ in range(3)]
-
-# To store visited states (avoid loops)
+goal = []
 visited = []
 
-# Convert 2D state to string (for easy comparison in visited)
-def state_to_string(state):
-    return ''.join(str(state[i][j]) for i in range(3) for j in range(3))
-
-
-# Heuristic function h(n)
-# Counts number of misplaced tiles (excluding blank 0)
-def calculate_h(state):
-    h = 0
+# Count misplaced tiles
+def h(state):
+    count = 0
     for i in range(3):
         for j in range(3):
             if state[i][j] != 0 and state[i][j] != goal[i][j]:
-                h += 1
-    return h
+                count += 1
+    return count
 
-
-# Print puzzle state nicely
-def print_state(state):
+# Print puzzle
+def show(state):
     for row in state:
         print(*row)
 
-
-# Deep copy of state (important for creating new states)
-def copy_state(state):
-    return [row[:] for row in state]
-
-
-# Check if current state == goal state
-def is_goal(state):
-    return state == goal
+# Convert state into string for visited
+def make_string(state):
+    s = ""
+    for row in state:
+        for x in row:
+            s += str(x)
+    return s
 
 
-# ----------- MAIN PROGRAM -----------
-
-# Input
 print("Note: For Blank Tile Enter 0")
-print("Enter Initial State (3x3):")
+print("Enter Initial State:")
+current = [list(map(int, input().split())) for _ in range(3)]
 
-current = []
-for i in range(3):
-    row = list(map(int, input().split()))
-    current.append(row)
+print("Enter Goal State:")
+goal = [list(map(int, input().split())) for _ in range(3)]
 
-print("Enter Goal State (3x3):")
-for i in range(3):
-    goal[i] = list(map(int, input().split()))
+g = 0
 
-g = 0  # Cost so far
-
-# A* Loop
-while not is_goal(current):
-    
-    visited.append(state_to_string(current))
+while current != goal:
+    visited.append(make_string(current))
 
     print(f"\nCurrent State (g={g}):")
-    print_state(current)
+    show(current)
 
-    # Find blank tile position
-    blank_row, blank_col = 0, 0
+    # Find blank tile
     for i in range(3):
         for j in range(3):
             if current[i][j] == 0:
-                blank_row, blank_col = i, j
+                r, c = i, j
 
-    min_f = float('inf')
-    min_h = float('inf')
-    best_state = None
-    chosen_move = ""
+    best = None
+    best_f = 999
+    best_h = 999
+    best_move = ""
 
-    moves = ["Up", "Down", "Left", "Right"]
+    moves = [("Up", -1, 0), ("Down", 1, 0), ("Left", 0, -1), ("Right", 0, 1)]
 
-    for move in moves:
-        new_row, new_col = blank_row, blank_col
+    for name, dr, dc in moves:
+        nr, nc = r + dr, c + dc
 
-        # Define movement
-        if move == "Up":
-            new_row -= 1
-        elif move == "Down":
-            new_row += 1
-        elif move == "Left":
-            new_col -= 1
-        elif move == "Right":
-            new_col += 1
+        if 0 <= nr < 3 and 0 <= nc < 3:
+            temp = [row[:] for row in current]
+            temp[r][c], temp[nr][nc] = temp[nr][nc], temp[r][c]
 
-        # Check valid move
-        if 0 <= new_row < 3 and 0 <= new_col < 3:
-            temp = copy_state(current)
-
-            # Swap blank with adjacent tile
-            temp[blank_row][blank_col], temp[new_row][new_col] = temp[new_row][new_col], temp[blank_row][blank_col]
-
-            # Avoid revisiting states
-            if state_to_string(temp) not in visited:
-                h = calculate_h(temp)
+            if make_string(temp) not in visited:
+                new_h = h(temp)
                 new_g = g + 1
-                f = new_g + h
+                f = new_g + new_h
 
-                print(f"Move: {move} -> g(n)={new_g} h(n)={h} f(n)={f}")
+                print(f"Move: {name} -> g(n)={new_g} h(n)={new_h} f(n)={f}")
 
-                # Choose best state (lowest f, then lowest h)
-                if f < min_f or (f == min_f and h < min_h):
-                    min_f = f
-                    min_h = h
-                    best_state = temp
-                    chosen_move = move
+                if f < best_f or (f == best_f and new_h < best_h):
+                    best = temp
+                    best_f = f
+                    best_h = new_h
+                    best_move = name
 
-    # If no moves possible
-    if best_state is None:
-        print("\nStuck! No valid unvisited moves available.")
+    if best is None:
+        print("\nStuck! No valid moves.")
         break
 
-    print(f"\nChosen Move: {chosen_move} with f(n) = {min_f} (h(n) = {min_h})")
+    print(f"\nChosen Move: {best_move} with f(n) = {best_f} (h(n) = {best_h})")
     print("----------------------------------")
 
-    current = best_state
+    current = best
     g += 1
 
-
-# Final Output
-if is_goal(current):
-    print("\nGoal State Reached!")
-    print_state(current)
+print("\nGoal State Reached!")
+show(current)
