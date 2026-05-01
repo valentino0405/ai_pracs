@@ -1,0 +1,46 @@
+?- grandfather(GF, valentino).
+GF = benjamin.
+
+?- grandfather(GF, caleb).
+GF = benjamin.
+
+?- grandmother(GM, valentino).
+GM = elizabeth.
+
+?- grandmother(GM, caleb).
+GM = elizabeth.
+
+?- parent(F, M, valentino).
+F = vincent,
+M = jacqueline.
+
+?- parent(F, M, jessica).
+F = vincent,
+M = jacqueline.
+
+?- siblings(valentino, jessica).
+yes.
+
+?- siblings(jacqueline, romeo).
+yes.
+
+?- brother(B, jessica).
+no.
+
+?- sister(S, valentino).
+S = jessica.
+
+?- uncle(U, valentino).
+U = anthony.
+
+?- aunt(A, caleb).
+no.
+
+?- cousin(C, valentino).
+C = caleb.
+
+?- cousin(C, caleb).
+C = valentino.
+
+?- brother(B, valentino).
+no.

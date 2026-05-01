@@ -38,3 +38,40 @@ while True:
 
 print("\nSimulation complete.")
 print(f"Final Total Cost of operations: {totalCost}")
+
+"""
+INPUT
+Enter status of Location A (Dirty/Clean): Dirty
+Enter status of Location B (Dirty/Clean): Dirty
+Enter initial position of Vacuum (A/B): A
+
+OUTPUT
+Starting Vacuum Cleaner Reflex Agent Simulation
+
+--- Current State ---
+Location: A | Status: Dirty
+Overall Status: A (Dirty), B (Dirty)
+Current Total Cost: 0
+Action: SUCK (Cost: 10)
+
+--- Current State ---
+Location: A | Status: Clean
+Overall Status: A (Clean), B (Dirty)
+Current Total Cost: 10
+Action: MOVE to B (Cost: 1)
+
+--- Current State ---
+Location: B | Status: Dirty
+Overall Status: A (Clean), B (Dirty)
+Current Total Cost: 11
+Action: SUCK (Cost: 10)
+
+--- Current State ---
+Location: B | Status: Clean
+Overall Status: A (Clean), B (Clean)
+Current Total Cost: 21
+Goal Reached: Both locations are clean. Action: EXIT.
+
+Simulation complete.
+Final Total Cost of operations: 21
+"""

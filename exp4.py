@@ -7,7 +7,6 @@ def get_index(name, nodes):
 def add_edge(adj, nodes, src, dest):
     s = get_index(src, nodes)
     d = get_index(dest, nodes)
-
     adj[s][d] = 1
     adj[d][s] = 1
 
@@ -120,3 +119,62 @@ while True:
         dfs(start, end, nodes, adj)
     else:
         print("Invalid choice!")
+
+"""
+Sample Input:
+Enter number of vertices: 7
+Enter node names (A B C or 0 1 2 etc): A B C D E F G
+Enter number of edges: 7
+Enter edges (source destination):
+A B
+A D
+B C
+B E
+D E
+C F
+E G
+
+--- MENU ---
+1. BFS
+2. DFS
+3. Exit
+Enter your choice: 1
+Enter starting node: A
+Enter ending node: G
+
+Sample Output (BFS):
+BFS Traversal:
+OPEN                          X         CLOSED
+------------------------------------------------------------
+['A']                         A         ['A']
+['B', 'D']                    B         ['A', 'B']
+['D', 'C', 'E']               D         ['A', 'B', 'D']
+['C', 'E']                    C         ['A', 'B', 'D', 'C']
+['E', 'F']                    E         ['A', 'B', 'D', 'C', 'E']
+['F', 'G']                    F         ['A', 'B', 'D', 'C', 'E', 'F']
+['G']                         G         ['A', 'B', 'D', 'C', 'E', 'F', 'G']
+
+Final Path: ['A', 'B', 'D', 'C', 'E', 'F', 'G']
+
+
+--- MENU ---
+1. BFS
+2. DFS
+3. Exit
+Enter your choice: 2
+Enter starting node: A
+Enter ending node: G
+
+Sample Output (DFS):
+DFS Traversal:
+OPEN                          X         CLOSED
+------------------------------------------------------------
+['A']                         A         ['A']
+['D', 'B']                    B         ['A', 'B']
+['D', 'E', 'C']               C         ['A', 'B', 'C']
+['D', 'E', 'F']               F         ['A', 'B', 'C', 'F']
+['D', 'E']                    E         ['A', 'B', 'C', 'F', 'E']
+['D', 'G']                    G         ['A', 'B', 'C', 'F', 'E', 'G']
+
+Final Path: ['A', 'B', 'C', 'F', 'E', 'G']
+"""

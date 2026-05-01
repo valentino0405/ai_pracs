@@ -1,9 +1,6 @@
-# A* for 8 Puzzle (Simple Version)
-
 goal = []
 visited = []
 
-# Count misplaced tiles
 def h(state):
     count = 0
     for i in range(3):
@@ -12,19 +9,16 @@ def h(state):
                 count += 1
     return count
 
-# Print puzzle
 def show(state):
     for row in state:
         print(*row)
 
-# Convert state into string for visited
 def make_string(state):
     s = ""
     for row in state:
         for x in row:
             s += str(x)
     return s
-
 
 print("Note: For Blank Tile Enter 0")
 print("Enter Initial State:")
@@ -41,7 +35,6 @@ while current != goal:
     print(f"\nCurrent State (g={g}):")
     show(current)
 
-    # Find blank tile
     for i in range(3):
         for j in range(3):
             if current[i][j] == 0:
@@ -86,3 +79,80 @@ while current != goal:
 
 print("\nGoal State Reached!")
 show(current)
+
+"""
+INPUT:
+2 8 3
+1 6 4
+7 0 5
+1 2 3
+8 0 4
+7 6 5
+
+OUTPUT:
+Note: For Blank Tile Enter 0
+Enter Initial State:
+2 8 3
+1 6 4
+7 0 5
+Enter Goal State:
+1 2 3
+8 0 4
+7 6 5
+
+Current State (g=0):
+2 8 3
+1 6 4
+7 0 5
+Move: Up -> g(n)=1 h(n)=3 f(n)=4
+Move: Left -> g(n)=1 h(n)=5 f(n)=6
+Move: Right -> g(n)=1 h(n)=5 f(n)=6
+
+Chosen Move: Up with f(n) = 4 (h(n) = 3)
+----------------------------------
+
+Current State (g=1):
+2 8 3
+1 0 4
+7 6 5
+Move: Up -> g(n)=2 h(n)=3 f(n)=5
+Move: Left -> g(n)=2 h(n)=3 f(n)=5
+Move: Right -> g(n)=2 h(n)=4 f(n)=6
+
+Chosen Move: Up with f(n) = 5 (h(n) = 3)
+----------------------------------
+
+Current State (g=2):
+2 0 3
+1 8 4
+7 6 5
+Move: Left -> g(n)=3 h(n)=2 f(n)=5
+Move: Right -> g(n)=3 h(n)=4 f(n)=7
+
+Chosen Move: Left with f(n) = 5 (h(n) = 2)
+----------------------------------
+
+Current State (g=3):
+0 2 3
+1 8 4
+7 6 5
+Move: Down -> g(n)=4 h(n)=1 f(n)=5
+
+Chosen Move: Down with f(n) = 5 (h(n) = 1)
+----------------------------------
+
+Current State (g=4):
+1 2 3
+0 8 4
+7 6 5
+Move: Down -> g(n)=5 h(n)=2 f(n)=7
+Move: Right -> g(n)=5 h(n)=0 f(n)=5
+
+Chosen Move: Right with f(n) = 5 (h(n) = 0)
+----------------------------------
+
+Goal State Reached!
+1 2 3
+8 0 4
+7 6 5
+"""
