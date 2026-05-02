@@ -24,23 +24,24 @@ yes.
 ?- siblings(jacqueline, romeo).
 yes.
 
-?- brother(B, jessica).
-no.
+?- brother(B, victoria).
+B = vincent ;
+B = anthony.
 
-?- sister(S, valentino).
-S = jessica.
+?- sister(S, anthony).
+S = victoria.
 
 ?- uncle(U, valentino).
 U = anthony.
 
+?- uncle(U, caleb).
+U = vincent.
+
 ?- aunt(A, caleb).
-no.
+A = victoria.
 
 ?- cousin(C, valentino).
 C = caleb.
 
 ?- cousin(C, caleb).
 C = valentino.
-
-?- brother(B, valentino).
-no.
