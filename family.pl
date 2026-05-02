@@ -18,6 +18,7 @@ father(vincent, jessica).
 father(benjamin, vincent).
 father(anthony, caleb).
 father(benjamin, anthony).
+father(benjamin, victoria).
 father(sydney, jacqueline).
 father(sydney, romeo).
 
@@ -27,6 +28,7 @@ mother(elizabeth, vincent).
 mother(suzana, jacqueline).
 mother(suzana, romeo).
 mother(elizabeth, anthony).
+mother(elizabeth, victoria).
 mother(bharti, caleb).
 
 parent(F, M, C) :- father(F, C), mother(M, C).
